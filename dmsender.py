@@ -1,20 +1,27 @@
-import sys
-import subprocess
+import sys, subprocess, time, json, random
 try:
-    import json
-    import time
-    import asyncio
-    import random
     from datetime import datetime
     from colorama import Fore
     import math
+    import pyfade
     from rich.console import Console
     import requests
 except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", '-r', 'requirements.txt'])
 
+
 with open("tokens.json", "r") as file:
     tokens = json.load(file)
+print(pyfade.Fade.Horizontal(pyfade.Colors.blue_to_cyan, '''
+███╗   ███╗ █████╗  ██████╗ ██████╗        ██████╗ ███╗   ███╗
+████╗ ████║██╔══██╗██╔════╝██╔════╝        ██╔══██╗████╗ ████║
+██╔████╔██║███████║╚█████╗ ╚█████╗         ██║  ██║██╔████╔██║
+██║╚██╔╝██║██╔══██║ ╚═══██╗ ╚═══██╗        ██║  ██║██║╚██╔╝██║
+██║ ╚═╝ ██║██║  ██║██████╔╝██████╔╝        ██████╔╝██║ ╚═╝ ██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═════╝ ╚═════╝         ╚═════╝ ╚═╝     ╚═╝'''))
+print(f'''{Fore.LIGHTWHITE_EX}                                             Made by {Fore.YELLOW}hoemotion 
+{Fore.LIGHTWHITE_EX}Check out the github page for updates: {Fore.LIGHTBLUE_EX}https://github.com/hoemotion/mass-dm-requests/  
+''')
 # initialize the Console() class
 console = Console()
 
