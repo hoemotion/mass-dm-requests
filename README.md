@@ -1,6 +1,7 @@
 # mass-dm-requests
 
-<img src="https://cdn.discordapp.com/attachments/821292429470466078/901142180461166662/unknown.png" width="600"/>
+<img src="https://cdn.discordapp.com/attachments/890913525017505792/908039694837755994/unknown.png" width="600"/>
+<img src="https://cdn.discordapp.com/attachments/803630210632646677/908040308502183936/unknown.png" 
 - Little preview of the Logger and the Spammer
                 
 				
