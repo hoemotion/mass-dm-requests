@@ -1,0 +1,9 @@
+{
+"logger-token": "Your Token for the logger here (other tokens please in tokens.json)",
+"whitelisted-Servers-only(logger)": "False",
+"min_cooldown": 9,
+"max_cooldown": 10,
+"dm_already_dmed_users": "False",
+"display_sleep": "True",
+"message": "hi user_mention | user_id"
+}
