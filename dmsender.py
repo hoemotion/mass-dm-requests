@@ -1,13 +1,17 @@
-import requests
 import sys
-import json
-import time
-import asyncio
-import random
-from datetime import datetime
-from colorama import Fore
-import math
-from rich.console import Console
+import subprocess
+try:
+    import json
+    import time
+    import asyncio
+    import random
+    from datetime import datetime
+    from colorama import Fore
+    import math
+    from rich.console import Console
+    import requests
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", '-r', 'requirements.txt'])
 
 with open("tokens.json", "r") as file:
     tokens = json.load(file)
