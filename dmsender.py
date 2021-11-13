@@ -28,7 +28,7 @@ console = Console()
 
 class discordConnect:
 
-    def __init__(self, token, client):
+    def __init__(self, token, client, id, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url):
         self.token = token
         self.client_id = client
         self.headers = {'accept': "*/*",
@@ -40,30 +40,91 @@ class discordConnect:
             'sec-ch-ua-platform': "Mac OS X",
             'user-agent': "Mozilla / 5.0(Macintosh; Intel Mac OS X 10_11_6) AppleWebKit / 537.36(KHTML, like Gecko) discord / 0.0.264 Chrome / 91.0.4472.164 Electron / 13.4.0 Safari / 537.36"}
 
-    def _get_channel_id(self, client_id):
+    def _get_channel_id(self, id):
         """ create message and return tokens list of messages """
         res = requests.post('https://discordapp.com/api/v9/users/@me/channels',
                             headers=self.headers, json={'recipient_id': self.client_id})
         return res.json().get('id')
 
-    def execute(self, message):
+    def execute(self, token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url):
         """ send message to client """
         channel_id = self._get_channel_id(self.client_id)
-        return requests.post(f'https://discordapp.com/api/v9/channels/{channel_id}/messages', headers=self.headers,
-                             json={'content': message.replace('user_id', f'{id}').replace('user_mention', f'<@{id}>')})
+        if send_embed == "True":
+            if send_message_and_embed == "True":
+                return requests.post(f'https://discordapp.com/api/v9/channels/{channel_id}/messages',
+                                     headers=self.headers,
+                                     json={'content': message.replace('user_id', f'{id}').replace('user_mention',
+                                                                                                  f'<@{id}>'),
+                                           "embeds": [
+                                               {
+                                                   "author": {
+                                                       "name": f"{author_name}".replace('user_id', f'{id}').replace('user_mention', f'<@{id}>'),
+                                                       "url": f"{author_url}",
+                                                       "icon_url": f"{author_icon_url}"
+                                                   },
+                                                   "title": f"{title}".replace('user_id', f'{id}').replace('user_mention', f'<@{id}>'),
+                                                   "url": f"{title_url}",
+                                                   "description": f"{description}".replace('user_id', f'{id}').replace('user_mention', f'<@{id}>'),
+                                                   "color": 15258703,
+                                                   "thumbnail": {
+                                                       "url": f"{thumbnail}"
+                                                   },
+                                                   "image": {
+                                                       "url": f"{image}"
+                                                   },
+                                                   "footer": {
+                                                       "text": f"{footer_text}".replace('user_id', f'{id}').replace('user_mention', f'<@{id}>'),
+                                                       "icon_url": f"{footer_icon_url}"
+                                                   }
+                                               }
+                                           ]
+                                           })
+            else:
+                return requests.post(f'https://discordapp.com/api/v9/channels/{channel_id}/messages',
+                                     headers=self.headers,
+                                     json={'content': "",
+                                           "embeds": [
+                                               {
+                                                   "author": {
+                                                       "name": f"{author_name}".replace('user_id', f'{id}').replace('user_mention', f'<@{id}>'),
+                                                       "url": f"{author_url}",
+                                                       "icon_url": f"{author_icon_url}"
+                                                   },
+                                                   "title": f"{title}".replace('user_id', f'{id}').replace('user_mention', f'<@{id}>'),
+                                                   "url": f"{title_url}",
+                                                   "description": f"{description}".replace('user_id', f'{id}').replace('user_mention', f'<@{id}>'),
+                                                   "color": 15258703,
+                                                   "thumbnail": {
+                                                       "url": f"{thumbnail}"
+                                                   },
+                                                   "image": {
+                                                       "url": f"{image}"
+                                                   },
+                                                   "footer": {
+                                                       "text": f"{footer_text}".replace('user_id', f'{id}').replace('user_mention', f'<@{id}>'),
+                                                       "icon_url": f"{footer_icon_url}"
+                                                   }
+                                               }
+                                           ]
+                                           })
+
+        elif send_embed == "False":
+            return requests.post(f'https://discordapp.com/api/v9/channels/{channel_id}/messages', headers=self.headers,
+                                 json={'content': message.replace('user_id', f'{id}').replace('user_mention',
+                                                                                              f'<@{id}>')})
 
 
-def websocketMessage(id, token):
+def websocketMessage(id, token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url):
     client_id = id
 
-    sendComp = discordConnect(token, client_id)
+    sendComp = discordConnect(token, client_id, id,  index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url)
 
 
-    sendComp.execute(message)
+    sendComp.execute(token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url)
 
 
 
-def log_id(id, token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max):
+def log_id(id, token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url):
     with open("alreadyusedids.json", "r") as file:
         penis = json.load(file)
     with open("blacklistedids.json", "r") as file:
@@ -74,7 +135,7 @@ def log_id(id, token, index, current_time, data, message, display_sleep, duplica
                 f"{Fore.BLUE}{current_time} {Fore.BLACK}[x] Blacklisted User {Fore.YELLOW}{id} {Fore.BLACK}{index} / {len(data)}")
         elif id not in blcklstdata:
             if duplicate == "True":
-                websocketMessage(id, token)
+                websocketMessage(id, token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url)
                 print(
                     f"{Fore.BLUE}{current_time} {Fore.LIGHTGREEN_EX}[+] Sent {message} to {Fore.YELLOW}{id}{Fore.LIGHTGREEN_EX} {index} / {len(data)}")
                 sleep = random.randint(cooldown, cooldown_max)
@@ -93,7 +154,7 @@ def log_id(id, token, index, current_time, data, message, display_sleep, duplica
                     print(
                         f"{Fore.BLUE}{current_time} {Fore.LIGHTMAGENTA_EX}[x] Avoiding Duplicates: {Fore.YELLOW}{id} {Fore.BLACK}{index} / {len(data)}")
                 elif id not in penis:
-                    websocketMessage(id, token)
+                    websocketMessage(id, token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url)
                     print(
                         f"{Fore.BLUE}{current_time} {Fore.LIGHTGREEN_EX}[+] Sent {message} to {Fore.YELLOW}{id}{Fore.LIGHTGREEN_EX} {index} / {len(data)}")
                     sleep = random.randint(cooldown, cooldown_max)
@@ -127,8 +188,20 @@ for i in data:
     cooldown_max = hoemotion['max_cooldown']
     message = hoemotion['message']
     display_sleep = hoemotion['display_sleep']
+    send_embed = hoemotion['send_embed']
+    send_message_and_embed = hoemotion['send_message_and_embed']
+    author_name = hoemotion['author_name']
+    author_icon_url = hoemotion['author_icon_url']
+    author_url = hoemotion['author_url']
     duplicate = hoemotion['dm_already_dmed_users']
-    log_id(id, token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max)
+    title = hoemotion['title']
+    title_url = hoemotion['title_url']
+    description = hoemotion['description']
+    thumbnail = hoemotion['thumbnail']
+    image = hoemotion['image']
+    footer_text = hoemotion['footer_text']
+    footer_icon_url = hoemotion['footer_icon_url']
+    log_id(id, token, index, current_time, data, message, display_sleep, duplicate, cooldown, cooldown_max, send_embed, send_message_and_embed, author_name, author_url, author_icon_url, title, title_url, description, thumbnail, image, footer_text, footer_icon_url)
 input(f"{Fore.LIGHTGREEN_EX}Press Enter 5 times to close the program.")
 [input(i) for i in range(4, 0, -1)]
 print("Goodbye!\nhttps://github.com/hoemotion/mass-dm-requests Don\'t forget to leave a star!!")
