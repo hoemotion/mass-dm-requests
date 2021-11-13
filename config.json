@@ -1,9 +1,21 @@
 {
-"logger-token": "Your Token for the logger here (other tokens please in tokens.json)",
+"logger-token": "Put Your Logger Token Here (all the other tokens in tokens.json)",
 "whitelisted-Servers-only(logger)": "False",
 "min_cooldown": 9,
 "max_cooldown": 10,
 "dm_already_dmed_users": "False",
 "display_sleep": "True",
-"message": "hi user_mention | user_id"
+"message": "hi user_mention | user_id",
+"send_embed": "True",
+"send_message_and_embed": "True",
+"author_name": "hoemotion",
+"author_icon_url": "https://cdn.discordapp.com/avatars/784122369416364082/a_b562e0c0d3be255f4365a1ef74e17703.gif?size=1024",
+"author_url": "https://discord.com/terms",
+"title": "Hello World",
+"title_url": "https://github.com/hoemotion",
+"description": "yo user_mention,\nDiscord has disabled my main account for this shit haha",
+"thumbnail": "https://cdn.discordapp.com/avatars/784122369416364082/a_b562e0c0d3be255f4365a1ef74e17703.gif?size=1024",
+"image": "https://i.imgur.com/E9ma6LSh.jpg",
+"footer_text": "Goodbye hoemotion#6977",
+"footer_icon_url": "https://cdn.discordapp.com/avatars/784122369416364082/a_b562e0c0d3be255f4365a1ef74e17703.gif?size=1024"
 }
