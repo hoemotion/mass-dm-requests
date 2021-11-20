@@ -4,5 +4,4 @@ requests
 rich
 asyncio
 colorama
-math
 pyfade
