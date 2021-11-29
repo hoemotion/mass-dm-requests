@@ -37,7 +37,7 @@ with open("ids.json", "r") as file:
   data = json.load(file)
 for memberID in members:
   if memberID not in data:
-    data.append(memberID)
+    data.append(int(memberID))
     print(memberID)
     with open("ids.json", "w") as file:
                 json.dump(data, file)
